@@ -13,5 +13,5 @@ service 'firewalld' do
   service_name 'firewalld.service'
   provider Chef::Provider::Service::Systemd
   action [:enable, :start] 
-  ignore_filure true
+  ignore_failure true
 end
