@@ -9,9 +9,10 @@
 
 package 'firewalld'
 
+execute 'systemctl unmask firewalld'
+
 service 'firewalld' do
   service_name 'firewalld.service'
   provider Chef::Provider::Service::Systemd
   action [:enable, :start] 
-  ignore_failure true
 end
