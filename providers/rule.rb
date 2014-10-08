@@ -23,7 +23,7 @@ action :set do
     zone = "--zone=#{new_resource.zone}"
   end
 
-  if new_resource.service.kind_of(String)
+  if new_resource.service.kind_of?(String)
     services = [new_resource.service]
   else
     services = new_resource.service
