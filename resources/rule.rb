@@ -22,4 +22,4 @@ default_action :set
 attribute :port,     :kind_of => [String, Array], :default => []
 attribute :service,  :kind_of => [String, Array], :default => []
 attribute :protocol, :kind_of => String,  :default => 'tcp'
-attribute :zone,     :kind_of => String,  :name_attribune =>true
+attribute :zone,     :kind_of => String,  :name_attribune => true
