@@ -19,7 +19,7 @@
 actions :set, :unset
 default_action :set
 
-attribute :port,     :kind_of => [String, Array], :default => []
-attribute :service,  :kind_of => [String, Array], :default => []
+attribute :port,     :kind_of => [String, Array], :default => Array.new
+attribute :service,  :kind_of => [String, Array], :default => Array.new
 attribute :protocol, :kind_of => String,  :default => 'tcp'
 attribute :zone,     :kind_of => String,  :name_attribute => true
