@@ -20,18 +20,33 @@
 action :set do
   zone = ''
   if new_resource.zone
-    zone = " --zone=#{new_resource.zone}"
+    zone = "--zone=#{new_resource.zone}"
   end
 
+  if new_resource.service.kind_of(String)
+    services = [new_resource.service]
+  else
+    services = new_resource.service
+  end
+  
   if new_resource.port.kind_of?(String)
     ports = [new_resource.port]
   else
     ports = new_resource.port
   end
+  
+  services.each do |service|
+    execute 'Permanently allow service' + service do
+      not_if "firewall-cmd --permanent #{zone} --query-service=#{service}"
+      command "firewall-cmd --permanent #{zone} --add-service=#{service}"
+      notifies :restart, 'service[firewalld]'
+    end
+  end
+  
   ports.each do |port|
     execute 'Permanently allow ' +new_resource.protocol + ' port '+port do
-      not_if "firewall-cmd --permanent#{zone} --query-port=#{port}/#{new_resource.protocol}"
-      command "firewall-cmd --permanent#{zone} --add-port=#{port}/#{new_resource.protocol}"
+      not_if "firewall-cmd --permanent  #{zone} --query-port=#{port}/#{new_resource.protocol}"
+      command "firewall-cmd --permanent #{zone} --add-port=#{port}/#{new_resource.protocol}"
       notifies :restart, 'service[firewalld]'
     end
   end
